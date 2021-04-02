@@ -1,24 +1,27 @@
 <template>
   <div>
-    <b-tabs content-class="mt-3">
+    <b-tabs content-class="mt-3" v-model="tabIndex" pills card>
       <b-tab title="GUI" active>
-        <b-button
-          @click="testExample(title)"
-          v-for="title in Object.keys(examples)"
-          v-bind:key="title">
-          {{title}}
-        </b-button>
+        <b-button-toolbar class="mx-1">
+          <b-button-group>
+            <b-button
+              @click="testExample(title)"
+              v-for="title in Object.keys(examples)"
+              v-bind:key="title">
+              {{title}}
+            </b-button>
+          </b-button-group>
+          <b-button variant="primary" @click="execute" class="mx-1">
+            <b-icon icon="play"></b-icon>Run</b-button>
+        </b-button-toolbar>
         <CommandComp :cmd="cmd" :key="forceKey" />
       </b-tab>
       <b-tab title="YAML">
         <pre style='padding-left: 10px'><code>{{ yamlDump }}</code></pre>
       </b-tab>
-      <b-tab title="Execute">
-        <b-button variant="primary" @click="execute">執行</b-button>
+      <b-tab title="Execute Result">
+        <b-alert show variant="danger" v-if="stderr != ''">{{ stderr }}</b-alert>
         <pre style='padding-left: 10px'><code>{{ stdout }}</code></pre>
-        <pre v-if="stderr != ''"
-             style='padding-left: 10px; color: red;'>
-          <code>{{ stderr }}</code></pre>
       </b-tab>
     </b-tabs>
   </div>
@@ -57,6 +60,7 @@ export default class HelloWorld extends Vue {
   private cmd: Command = new CommandList()
   private stdout = ''
   private stderr = ''
+  private tabIndex = 0
 
   private examples: any = {
     'Hello world': EXAMPLE_HELLOWORLD,
@@ -97,6 +101,7 @@ export default class HelloWorld extends Vue {
 
   execute() {
     this.stdout = ''
+    this.tabIndex = 2
     this.stderr = cablinRun(this.yamlDump, this.logging)
   }
 }
