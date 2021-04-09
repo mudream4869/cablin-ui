@@ -11,15 +11,13 @@ export const EXAMPLE_PLUS =`
 - call:
     name: 'my::print'
     params:
-      - call:
-          name: 'op::plus'
-          params:
-            - const:
-                type: number
-                value: 1
-            - const:
-                type: number
-                value: 2
+      - plus:
+        - const:
+            type: number
+            value: 1
+        - const:
+            type: number
+            value: 2
 `
 
 export const EXAMPLE_IF = `
@@ -51,13 +49,11 @@ export const EXAMPLE_WHILE_LOOP = `
     value: 0
 - while:
     condition:
-      call:
-        name: 'op::less'
-        params:
-          - get: i
-          - const:
-              type: int
-              value: 10
+      less:
+        - get: i
+        - const:
+            type: int
+            value: 10
     body:
       - call:
           name: 'my::print'
@@ -66,11 +62,9 @@ export const EXAMPLE_WHILE_LOOP = `
       - assign:
           target: i
           source:
-            call:
-              name: 'op::plus'
-              params:
-                - get: i
-                - const:
-                    type: int
-                    value: 1
+            plus:
+              - get: i
+              - const:
+                  type: int
+                  value: 1
 `

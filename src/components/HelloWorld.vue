@@ -85,7 +85,6 @@ export default class HelloWorld extends Vue {
     const fullProg = [
       {'import': 'my'},
       {'import': 'io'},
-      {'import': 'op'},
       {'import': 'cast'},
       {'func': {
           'name': 'main',
@@ -102,6 +101,7 @@ export default class HelloWorld extends Vue {
   execute() {
     this.stdout = ''
     this.tabIndex = 2
+    console.log(this.yamlDump)
     this.stderr = cablinRun(this.yamlDump, this.logging)
   }
 }

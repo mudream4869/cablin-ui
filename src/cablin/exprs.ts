@@ -2,23 +2,10 @@ import { CommandCall } from './commands'
 import { inputValue, outputValue, Value } from './value'
 import { YamlObj } from './yamlobj'
 
-const exprTypeMap = new Map<string, string>()
-exprTypeMap.set('ExprConst', 'const')
-exprTypeMap.set('ExprVar', 'get')
-exprTypeMap.set('ExprCall', 'call')
-
 const exprConstructMap = new Map<string, {(): Expr}>()
 
-function getExprType(expr: Expr): string {
-  const name = exprTypeMap.get(expr.exprName())
-  if (name === undefined) {
-    return ''
-  }
-  return name
-}
-
 export function exprOutputFactory(expr: Expr): YamlObj {
-  const name = getExprType(expr)
+  const name = expr.exprName()
   const ret: {
     [key: string]: YamlObj;
   } = {}
@@ -45,7 +32,7 @@ export class ExprConst {
   val: Value = null
 
   exprName (): string {
-    return 'ExprConst'
+    return 'const'
   }
 
   input (obj: any) {
@@ -61,7 +48,7 @@ export class ExprVar {
   name = ''
 
   exprName (): string {
-    return 'ExprVar'
+    return 'get'
   }
 
   input (obj: any) {
@@ -77,7 +64,7 @@ export class ExprCall {
   cmdCall = new CommandCall()
 
   exprName (): string {
-    return 'ExprCall'
+    return 'call'
   }
 
   input (obj: any) {
@@ -89,8 +76,66 @@ export class ExprCall {
   }
 }
 
-export type Expr = ExprConst | ExprVar | ExprCall;
+export class ExprUnaryOp {
+  expr: Expr = new ExprConst()
+  name = 'neg'
+
+  constructor (name: string) {
+    this.name = name
+  }
+
+  exprName (): string {
+    return this.name
+  }
+
+  input (obj: any) {
+    this.expr = exprInputFactory(obj)
+  }
+
+  output (): YamlObj {
+    return exprOutputFactory(this.expr)
+  }
+}
+
+export class ExprBinaryOp {
+  expr1: Expr = new ExprConst()
+  expr2: Expr = new ExprConst()
+  name = 'plus'
+
+  constructor (name: string) {
+    this.name = name
+  }
+
+  exprName (): string {
+    return this.name
+  }
+
+  input (obj: any) {
+    this.expr1 = exprInputFactory(obj[0])
+    this.expr2 = exprInputFactory(obj[1])
+  }
+
+  output (): YamlObj {
+    return [exprOutputFactory(this.expr1), exprOutputFactory(this.expr2)]
+  }
+}
+
+export type Expr = ExprConst | ExprVar | ExprCall | ExprUnaryOp | ExprBinaryOp;
 
 exprConstructMap.set('const', () => new ExprConst())
 exprConstructMap.set('get', () => new ExprVar())
 exprConstructMap.set('call', () => new ExprCall())
+
+export const UnaryOps = ['not', 'neg']
+UnaryOps.forEach((key: string) => {
+  exprConstructMap.set(key, () => new ExprUnaryOp(key))
+})
+
+export const BinaryOps = [
+  'plus', 'minus', 'multiply', 'divide', 'mod',
+  'and', 'or',
+  'equal', 'not_equal', 'less', 'greater', 'less_equal', 'greater_equal'
+]
+BinaryOps.forEach((key: string) => {
+  exprConstructMap.set(key, () => new ExprBinaryOp(key))
+})
