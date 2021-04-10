@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-input-group prepend="function: " class="mb-2 mr-sm-2 mb-sm-0">
+    <b-input-group prepend="Call function: " class="mb-2 mr-sm-2 mb-sm-0">
       <b-form-select
         v-model="cmd.funcName"
         :options="funcList"
@@ -40,7 +40,6 @@ export default class CommandCallComp extends Vue {
     'cast::int',
     'cast::int64',
     'cast::float',
-    'io::print',
     'my::print',
   ]
 

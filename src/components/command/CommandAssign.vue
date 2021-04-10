@@ -1,7 +1,7 @@
 <template>
   <div>
-    <b-input-group prepend="target: " class="mb-2 mr-sm-2 mb-sm-0">
-      <b-form-input v-model="cmd.target" placeholder="Var Name"></b-form-input>
+    <b-input-group prepend="Assign target: " class="mb-2 mr-sm-2 mb-sm-0">
+      <b-form-input v-model="cmd.target" placeholder="Variable Name"></b-form-input>
     </b-input-group>
     <expr-comp v-model="cmd.source"/>
   </div>

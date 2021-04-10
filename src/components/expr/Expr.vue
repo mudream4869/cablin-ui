@@ -3,7 +3,7 @@
     <b-form inline>
       <b-form-select
         class="mb-2 mr-sm-2 mb-sm-0"
-        :options="['const', 'get', 'call', 'unary op', 'binary op']"
+        :options="options"
         v-model="typeName"
         @change="updateValue"
       ></b-form-select>
@@ -38,6 +38,14 @@ export default class ExprComp extends Vue {
   private vCall: Expr = new ExprCall()
   private vUnaryOp: Expr = new ExprUnaryOp('neg')
   private vBinaryOp: Expr = new ExprBinaryOp('plus')
+
+  private options = [
+    {text: 'Constant', value: 'const'},
+    {text: 'Variable', value: 'get'},
+    {text: 'Call Function', value: 'call'},
+    {text: 'Unary Operator', value: 'unary op'},
+    {text: 'Binary Operator', value: 'binary op'},
+  ]
 
   constructor () {
     super()

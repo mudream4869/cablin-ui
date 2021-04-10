@@ -1,6 +1,6 @@
 <template>
   <div>
-    Break
+    Break the loop
   </div>
 </template>
 

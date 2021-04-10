@@ -17,11 +17,13 @@
         <CommandComp :cmd="cmd" :key="forceKey" />
       </b-tab>
       <b-tab title="YAML">
-        <pre style='padding-left: 10px'><code>{{ yamlDump }}</code></pre>
+        <highlight-code lang="yaml">
+          {{ yamlDump }}
+        </highlight-code>
       </b-tab>
       <b-tab title="Execute Result">
         <b-alert show variant="danger" v-if="stderr != ''">{{ stderr }}</b-alert>
-        <pre style='padding-left: 10px'><code>{{ stdout }}</code></pre>
+        <pre class="code-block"><code>{{ stdout }}</code></pre>
       </b-tab>
     </b-tabs>
   </div>
@@ -84,7 +86,6 @@ export default class HelloWorld extends Vue {
   get yamlDump(): string {
     const fullProg = [
       {'import': 'my'},
-      {'import': 'io'},
       {'import': 'cast'},
       {'func': {
           'name': 'main',
@@ -108,4 +109,8 @@ export default class HelloWorld extends Vue {
 </script>
 
 <style scoped>
+.code-block {
+  padding-left: 10px;
+  background-color: #DDDDDD;
+}
 </style>

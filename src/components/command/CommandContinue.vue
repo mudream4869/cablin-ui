@@ -1,6 +1,6 @@
 <template>
   <div>
-    Continue
+    Continue the loop
   </div>
 </template>
 

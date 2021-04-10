@@ -87,7 +87,7 @@ export default class CommandListComp extends Vue {
   private dragIndex: number | null = null
 
   cmdList (): any[] {
-    let ret: any[] = [{ text: 'Choose...', value: null }]
+    let ret: any[] = [{ text: 'Choose a command...', value: null }]
     ret = ret.concat(commandList)
     return ret
   }

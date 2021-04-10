@@ -1,6 +1,8 @@
 <template>
   <div>
-    <expr-comp v-model="cmd.retValue"/>
+    <b-input-group prepend="Return " class="mb-2 mr-sm-2 mb-sm-0">
+      <expr-comp v-model="cmd.retValue"/>
+    </b-input-group>
   </div>
 </template>
 

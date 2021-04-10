@@ -1,8 +1,8 @@
 <template>
   <div>
     <b-form inline>
-      <b-input-group prepend="var: " class="mb-2 mr-sm-2 mb-sm-0">
-        <b-form-input v-model="cmd.name" placeholder="Var Name"></b-form-input>
+      <b-input-group prepend="Declare variable: " class="mb-2 mr-sm-2 mb-sm-0">
+        <b-form-input v-model="cmd.name" placeholder="Variable Name"></b-form-input>
       </b-input-group>
       <value-comp v-model="cmd.value"/>
     </b-form>
