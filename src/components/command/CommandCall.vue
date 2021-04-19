@@ -10,7 +10,7 @@
     <b-list-group>
       <b-list-group-item v-for="(param, i) in cmd.params" v-bind:key="i">
         <b-form inline>
-          <expr-comp v-model="cmd.params[i]"/>
+          <simple-expr-comp v-model="cmd.params[i]"/>
         </b-form>
       </b-list-group-item>
       <b-list-group-item>
@@ -24,12 +24,12 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { CommandCall } from '../../cablin/commands';
 import { ExprConst } from '../../cablin/exprs';
-import ExprComp from '../expr/Expr.vue';
+import SimpleExprComp from '../expr/SimpleExpr.vue';
 import VueBootstrapTypeahead from 'vue-bootstrap-typeahead'
 
 @Component({
   components: {
-    ExprComp,
+    SimpleExprComp,
     VueBootstrapTypeahead,
   }
 })

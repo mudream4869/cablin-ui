@@ -5,19 +5,19 @@
       :options="BinaryOps"
       v-model="expr.name"
     ></b-form-select>
-    <expr-comp v-model="expr.expr1"></expr-comp>
-    <expr-comp v-model="expr.expr2"></expr-comp>
+    <simple-expr-comp v-model="expr.expr1"/>
+    <simple-expr-comp v-model="expr.expr2"/>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { ExprBinaryOp, BinaryOps } from '../../cablin/exprs';
-import ExprComp from './Expr.vue';
+import SimpleExprComp from './SimpleExpr.vue';
 
 @Component({
   components: {
-    ExprComp,
+    SimpleExprComp,
   },
 })
 export default class ExprUnaryOpComp extends Vue {

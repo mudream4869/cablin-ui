@@ -6,7 +6,7 @@
         :options="UnaryOps"
         v-model="expr.name"
       ></b-form-select>
-      <expr-comp v-model="expr.expr"></expr-comp>
+      <simple-expr-comp v-model="expr.expr"/>
     </b-input-group>
   </div>
 </template>
@@ -14,11 +14,11 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { ExprUnaryOp, UnaryOps } from '../../cablin/exprs';
-import ExprComp from './Expr.vue';
+import SimpleExprComp from './SimpleExpr.vue';
 
 @Component({
   components: {
-    ExprComp,
+    SimpleExprComp,
   },
 })
 export default class ExprUnaryOpComp extends Vue {
